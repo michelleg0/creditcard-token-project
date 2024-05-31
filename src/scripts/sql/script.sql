@@ -1,4 +1,4 @@
-create table credit_card
+create table if not exists credit_card
 (
     id                  int auto_increment
         primary key,
@@ -8,14 +8,14 @@ create table credit_card
     expiration_year     varchar(2)   not null
 );
 
-create table payment_processor
+create table if not exists payment_processor
 (
     id   int auto_increment
         primary key,
     name varchar(100) not null
 );
 
-create table customer
+create table if not exists customer
 (
     id                   int auto_increment
         primary key,
@@ -29,5 +29,3 @@ create table customer
     constraint customer_payment_processor_id_fk
         foreign key (payment_processor_id) references payment_processor (id)
 );
-
-

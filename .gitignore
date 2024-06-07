@@ -88,3 +88,4 @@ nb-configuration.xml
 ## Miscellaneous
 ##############################
 *.log
+/mysql-connector-j-8.4.0/

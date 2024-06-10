@@ -1,6 +1,6 @@
 package test.java;
 
-import main.java.dto.CreditCardTokenizer;
+import main.java.utility.CreditCardTokenizer;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

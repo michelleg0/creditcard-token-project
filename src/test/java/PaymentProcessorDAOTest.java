@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import main.java.dao.PaymetProcessorDAO;
+import main.java.dao.PaymentProcessorDAO;
 import main.java.dto.PaymentProcessorDTO;
 import main.java.entity.PaymentProcessor;
 import main.java.utility.DatabaseConnection;
@@ -42,7 +42,7 @@ public class PaymentProcessorDAOTest {
     private ResultSet mockResultSet;
 
     @InjectMocks
-    private PaymetProcessorDAO paymetProcessorDAO;
+    private PaymentProcessorDAO paymentProcessorDAO;
 
     private MockedStatic<DatabaseConnection> mockedDatabaseConnection;
 
@@ -67,7 +67,7 @@ public class PaymentProcessorDAOTest {
         when(mockResultSet.next()).thenReturn(true);
         when(mockResultSet.getInt(1)).thenReturn(1);
 
-        int newId = paymetProcessorDAO.insertPaymentProcessor(paymentProcessorDTO);
+        int newId = paymentProcessorDAO.insertPaymentProcessor(paymentProcessorDTO);
 
         assertEquals(1, newId);
         verify(mockPreparedStatement).setString(1, "Stripe");
@@ -86,7 +86,7 @@ public class PaymentProcessorDAOTest {
         when(mockResultSet.getInt(DbConstants.ID)).thenReturn(1, 2);
         when(mockResultSet.getString(DbConstants.NAME)).thenReturn("Stripe", "Keap Pay");
 
-        List<PaymentProcessor> actualPaymentProcessors = paymetProcessorDAO.getAllPaymentProcessors();
+        List<PaymentProcessor> actualPaymentProcessors = paymentProcessorDAO.getAllPaymentProcessors();
 
         assertEquals(expectedPaymentProcessors, actualPaymentProcessors);
     }
@@ -101,7 +101,7 @@ public class PaymentProcessorDAOTest {
         when(mockResultSet.getInt(DbConstants.ID)).thenReturn(1);
         when(mockResultSet.getString(DbConstants.NAME)).thenReturn("Stripe");
 
-        PaymentProcessor actualPaymentProcessor = paymetProcessorDAO.getPaymentProcessor(1);
+        PaymentProcessor actualPaymentProcessor = paymentProcessorDAO.getPaymentProcessor(1);
 
         assertEquals(expectedPaymentProcessor, actualPaymentProcessor);
         verify(mockPreparedStatement).setInt(1, 1);

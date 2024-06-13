@@ -33,3 +33,5 @@ cd creditcard-token-project
 
 - The following dependencies need to be added to the project
 ![project_dependencies](images/project_dependencies.png)
+
+### License

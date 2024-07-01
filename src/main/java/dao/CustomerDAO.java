@@ -13,28 +13,25 @@ import main.java.utility.DatabaseConnection;
 import main.java.utility.DbConstants;
 
 public class CustomerDAO {
-    public int insertCustomer(CustomerDTO customer) {
+    public int insertCustomer(CustomerDTO customer) throws SQLException {
         String sql = "INSERT INTO customer (first_name, last_name, email) VALUES (?, ?, ?)";
 
-        int newId = -1;
+        int newId;
 
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, customer.firstName());
-            stmt.setString(2, customer.lastName());
-            stmt.setString(3, customer.email());
+        Connection conn = DatabaseConnection.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(sql);
+        stmt.setString(1, customer.firstName());
+        stmt.setString(2, customer.lastName());
+        stmt.setString(3, customer.email());
 
-            stmt.executeUpdate();
+        stmt.executeUpdate();
 
-            try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
-                if (generatedKeys.next()) {
-                    newId = generatedKeys.getInt(1);
-                } else {
-                    throw new SQLException("Inserting customer failed, no ID obtained.");
-                }
+        try (ResultSet generatedKeys = stmt.getGeneratedKeys()) {
+            if (generatedKeys.next()) {
+                newId = generatedKeys.getInt(1);
+            } else {
+                throw new SQLException("Inserting customer failed, no ID obtained.");
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         return newId;

@@ -14,6 +14,7 @@ import main.java.utility.DatabaseConnection;
 import main.java.utility.DbConstants;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -74,6 +75,16 @@ class CustomerDAOTest {
         verify(mockPreparedStatement).setString(2, "Doe");
         verify(mockPreparedStatement).setString(3, "john.doe@example.com");
         verify(mockPreparedStatement).executeUpdate();
+    }
+
+    @Test
+    void insertCustomer_DatabaseRelatedIssue_ThrowsSQLException() throws SQLException {
+        CustomerDTO customerDTO = new CustomerDTO("John", "Doe", "john.doe@example.com");
+
+        when(mockConnection.prepareStatement(anyString())).thenReturn(mockPreparedStatement);
+        when(mockPreparedStatement.executeUpdate()).thenThrow(new SQLException("Database error"));
+
+        assertThrows(SQLException.class, () -> customerDAO.insertCustomer(customerDTO));
     }
 
     @Test

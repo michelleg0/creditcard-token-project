@@ -12,7 +12,7 @@ import main.java.entity.PaymentProcessor;
 import main.java.utility.DatabaseConnection;
 import main.java.utility.DbConstants;
 
-public class PaymetProcessorDAO {
+public class PaymentProcessorDAO {
     public int insertPaymentProcessor(PaymentProcessorDTO paymentProcessor) {
         String sql = "INSERT INTO payment_processor (name) VALUES (?)";
 

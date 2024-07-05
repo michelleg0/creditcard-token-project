@@ -19,7 +19,7 @@ public class CustomerDAO {
         int newId;
 
         Connection conn = DatabaseConnection.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(sql);
+        PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         stmt.setString(1, customer.firstName());
         stmt.setString(2, customer.lastName());
         stmt.setString(3, customer.email());
